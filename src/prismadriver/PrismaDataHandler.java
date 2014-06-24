@@ -380,7 +380,6 @@ public class PrismaDataHandler {
      * @param type
      */
     public void WriteToDB(String sensor, String ddate, String ttime, String milis, double data, String type) {
-        //String sensor = "0";
         Connection con = null;
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -422,7 +421,6 @@ public class PrismaDataHandler {
                         + "milliseconds INT NULL DEFAULT NULL,"
                         + "humidity DOUBLE NULL ,"
                         + "PRIMARY KEY ( sensorID , date , time , milliseconds ))");
-                //System.out.println("Create Table executed.");
             } catch (SQLException s) {
                 System.out.println("Couldn't Create Table!");
                 s.printStackTrace();
@@ -439,7 +437,6 @@ public class PrismaDataHandler {
                         + "milliseconds INT NULL DEFAULT NULL,"
                         + "temperature DOUBLE NULL DEFAULT NULL ,"
                         + "PRIMARY KEY ( sensorID, date , time , milliseconds))");
-                //System.out.println("Create Table executed.");
             } catch (SQLException s) {
                 System.out.println("Couldn't Create Table!");
                 s.printStackTrace();
@@ -456,7 +453,6 @@ public class PrismaDataHandler {
                         + "milliseconds INT NULL DEFAULT NULL,"
                         + "light DOUBLE NULL DEFAULT NULL ,"
                         + "PRIMARY KEY ( sensorID, date , time , milliseconds))");
-                //System.out.println("Create Table executed.");
             } catch (SQLException s) {
                 System.out.println("Couldn't Create Table!");
                 s.printStackTrace();
@@ -468,7 +464,6 @@ public class PrismaDataHandler {
                     stmt = con.createStatement();
                     stmt.execute("INSERT INTO prismahumidity (sensorID, date, time, milliseconds, humidity) VALUES ('"
                             //INSERT date from message (date of message formed)
-                            //TODO bug : if date is changed as message comes 00:00 next day
                             + sensor + "', '"
                             + ddate + "', '"
                             + ttime + "', '"
@@ -487,7 +482,6 @@ public class PrismaDataHandler {
                     stmt = con.createStatement();
                     stmt.execute("INSERT INTO prismatemperature (sensorID, date, time, milliseconds, temperature) VALUES ('"
                             //INSERT date from message (date of message formed)
-                            //TODO bug : if date is changed as message comes 00:00 next day
                             + sensor + "', '"
                             + ddate + "', '"
                             + ttime + "', '"
@@ -506,7 +500,6 @@ public class PrismaDataHandler {
                     stmt = con.createStatement();
                     stmt.execute("INSERT INTO prismalight (sensorID, date, time, milliseconds, light) VALUES ('"
                             //INSERT date from message (date of message formed)
-                            //TODO bug : if date is changed as message comes 00:00 next day
                             + sensor + "', '"
                             + ddate + "', '"
                             + ttime + "', '"
@@ -541,9 +534,6 @@ public class PrismaDataHandler {
     }
 
     /**
-     * Old parse data by Kostas Each line contains only one H/T/L. Unknown how
-     * it worked for a while. Now the quax application sends everything in a
-     * single package.
      *
      * @param mode
      * @param in
@@ -603,7 +593,6 @@ public class PrismaDataHandler {
         }
         
         if (data.contains("L")) {
-//            mode = "Light";
             for (int i = 2; i < strarray.length; i++) {
                 c = strarray[i];
                 if (!(Character.isDigit(c)) && (c != '.')) {
